@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layouts/main">
+<head>
+	<title>Crear Nuevo Supermercado</title>
+</head>
+<body>
+		
+	<div layout:fragment="content">
+	
+		<h2>Crear Nuevo Supermercado</h2>
+		<br/>
+
+		<form class="form-horizontal" th:object="${supermercado}" th:action="@{/configurar/crearSupermercado/save}" method="post">
+			<input type="hidden" th:field="*{idSupermercado}" />
+			<div th:class="form-group" th:classappend="${#fields.hasErrors('nombre')}? 'has-error'">
+				<label class="col-sm-2 control-label">Nombre <span class="required">*</span></label>
+				<div class="col-md-10">
+					<input type="text" class="form-control" th:field="*{nombre}"/>
+					<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" th:class="help-block">Nombre Errors</span>
+				</div>
+			</div>
+			<div th:class="form-group" th:classappend="${#fields.hasErrors('direccion')}? 'has-error'">
+		    	<label class="col-sm-2 control-label">Direccion <span class="required">*</span></label>
+		    	<div class="col-md-10">
+		    		<input type="text" class="form-control" th:field="*{direccion}" />
+		    		<span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" th:class="help-block">Direccion Errors</span>
+		    	</div>
+		  	</div>
+			<div th:class="form-group" th:classappend="${#fields.hasErrors('marca')}? 'has-error'">
+		    	<label class="col-sm-2 control-label">Marca <span class="required">*</span></label>
+		    	<div class="col-md-10">
+					<select class="form-control" th:field="*{MarcaSupermercado}">
+						<option th:each="marca : ${T(com.emervel.dominio.Supermercado.MarcaSupermercado).values()}"
+								th:value="${marca}"
+								th:text="${marca}">
+						</option>
+					</select>
+		    	</div>
+		  	</div>
+
+			<button type="submit" class="btn btn-primary pull-right">Enviar</button>
+		</form>		
+		
+		<br/><br/><br/>
+		
+	</div>
+		
+</body>
+</html>

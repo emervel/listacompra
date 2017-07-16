@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="layouts/main" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Lista compra</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+	<h2>Lista de la Compra</h2>
+
+	<div th:if="${message}" class="alert alert-success" role="alert">
+		<p th:text="${message}">success message</p>
+	</div>
+    <table class="table">
+        <tr>
+            <td>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Fecha Modificado</th>
+                        <th>Accion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="supermercado : ${supermercados}">
+                        <td th:text="${supermercado.marca}">Marca</td>
+                        <td th:text="${supermercado.nombre}">Nombre</td>
+                        <td th:text="${supermercado.direccion}">Direccion</td>
+                        <td th:text="${#calendars.format(supermercado.ultimaModificacion,'M/dd/yyyy hh:mm:ss a')}">Ultima modificacion</td>
+                        <td>
+                            <form class="button" th:action="@{/configurar/eliminarSupermercado/} + ${supermercado.idSupermercado}" method="GET">
+                                <input type="submit" value="Eliminar"/>
+                            </form>
+                           <!-- <button type="button" th:href="@{/configurar/crearSupermercado/} + ${supermercado.idSupermercado}">Eliminar</button></td>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    <a href="#" th:href="@{/configurar/crearSupermercado}">Añadir nuevo</a>
+	<br/><br/>
+
+	<p th:if="${supermercados.size() == 0}">
+	<div class="alert alert-warning" role="alert">No hay supermercados creados</div>
+	</p>
+
+</div>
+
+</body>
+</html>

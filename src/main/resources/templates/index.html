@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"
+	layout:decorator="layouts/main">
+<head>
+	<title>Lista compra</title>
+
+    <script type="text/javascript">
+        alert('cargando');
+
+
+        function modificar(idProducto,valor) {
+            alert(idProducto);
+            alert(valor);
+        }
+        function modificar2() {
+            alert('aaa');
+        }
+    </script>
+</head>
+<body>
+<div layout:fragment="content">
+
+	<h2>Lista de la Compra</h2>
+
+	<div th:if="${message}" class="alert alert-success" role="alert">
+		<p th:text="${message}">success message</p>
+	</div>
+    <table class="table">
+        <tr>
+            <td>
+                <h4>Productos Disponibles</h4>
+            </td>
+            <td>
+                <h4>Productos en la Lista</h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Accion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="producto : ${productos}">
+                        <td> <a href="#" th:href="@{'/' + ${producto.idProducto}}" th:text="${producto.nombre}">nombre</a> </td>
+                        <td th:id="${producto.idProducto}"><button type="button" th:onclick="'javascript:modificar(\'' + ${producto.idProducto} + '\',1);'">+</button><button type="button" th:onclick="'javascript:modificar2();'">-</button></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Accion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="listaProducto : ${listaProductos}">
+                        <td> <a href="#" th:href="@{'/' + ${listaProducto.producto.idProducto}}" th:text="${listaProducto.producto.nombre}">nombre</a> </td>
+                        <td th:text="${listaProducto.cantidad}">cantidad</td>
+                        <td th:id="${listaProducto.producto.idProducto}"><button type="button" th:onclick="'javascript:modificar(\'' + ${listaProducto.producto.idProducto} + '\',1);'">+</button><button type="button" th:onclick="'javascript:modificar2();'">-</button></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    <a href="#" th:href="@{/admin/post/create}">Add New Post</a>
+	<br/><br/>
+
+	<p th:if="${listaProductos.size() == 0}">
+	<div class="alert alert-warning" role="alert">No hay productos en tu lista</div>
+	</p>
+
+</div>
+
+</body>
+</html>

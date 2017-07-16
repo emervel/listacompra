@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+	layout:decorator="layouts/main">
+<head>
+	<title>Lista compra</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+	<h2>Lista de la Compra</h2>
+
+	<div th:if="${message}" class="alert alert-success" role="alert">
+		<p th:text="${message}">success message</p>
+	</div>
+    <table class="table">
+        <tr>
+            <td>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Descripcion</th>
+                        <th>Supermercados</th>
+                        <th>Fecha Modificado</th>
+                        <th>Accion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="listaProducto : ${listaProductos}">
+                        <td> <a href="#" th:href="@{'/' + ${listaProducto.producto.idProducto}}" th:text="${listaProducto.producto.nombre}">nombre</a> </td>
+                        <td th:text="${listaProducto.cantidad}">cantidad</td>
+                        <td th:id="${listaProducto.producto.idProducto}"><button type="button" th:onclick="'javascript:modificar(\'' + ${listaProducto.producto.idProducto} + '\',1);'">+</button><button type="button" th:onclick="'javascript:modificar2();'">-</button></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    <a href="#" th:href="@{/admin/post/create}">Add New Post</a>
+	<br/><br/>
+
+	<p th:if="${listaProductos.size() == 0}">
+	<div class="alert alert-warning" role="alert">No hay productos en tu lista</div>
+	</p>
+
+</div>
+
+</body>
+</html>

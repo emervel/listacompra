@@ -1,0 +1,1 @@
+An app for create a shopping list for supermakets
